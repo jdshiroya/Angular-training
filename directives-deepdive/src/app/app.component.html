@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="toggleOdd()">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group">
+        <!-- <div *ngIf="onlyOdd">
+          <li class="list-group-item" *ngFor="let odd of oddNumbers"
+            [ngStyle]="{backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}" [ngClass]="{odd : odd%2 !== 0}">
+            {{ odd }}
+          </li>
+        </div>
+        <div *ngIf="! onlyOdd">
+          <li class="list-group-item" *ngFor="let even of evenNumbers;let i=index;"
+            [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}" [ngClass]="{odd : even%2 !== 0}">
+            {{ even }}
+          </li>
+        </div> -->
+        <div *appUnless="onlyOdd">
+          <li class="list-group-item" *ngFor="let odd of oddNumbers"
+            [ngStyle]="{backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}" [ngClass]="{odd : odd%2 !== 0}">
+            {{ odd }}
+          </li>
+        </div>
+        <ng-template [ngIf]="onlyOdd">
+          <p>Only odd</p>
+        </ng-template>
+      </ul>
+      <p appBasicHighlight>
+        style me with basic directive
+      </p>
+      <p appBetterHighlight [defaultColor]="'pink'" [highlightColor]="'orange'">
+        style me with a batter directive
+      </p>
+      <button class="btn btn-primary" (click)="generateValue()">Generate Value</button>
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="1">value is 1</p>
+        <p *ngSwitchCase="2">value is 2</p>
+        <p *ngSwitchCase="3">value is 3</p>
+        <p *ngSwitchCase="4">value is 4</p>
+        <p *ngSwitchCase="5">value is 5</p>
+        <p *ngSwitchCase="6">value is 6</p>
+        <p *ngSwitchCase="7">value is 7</p>
+        <p *ngSwitchCase="8">value is 8</p>
+        <p *ngSwitchCase="9">value is 9</p>
+        <p *ngSwitchDefault>value is zero</p>
+      </div>
+    </div>
+  </div>
+</div>

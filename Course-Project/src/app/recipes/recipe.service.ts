@@ -1,49 +1,41 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Recipe } from './recipe-list/recipe.model';
-import { Ingredient } from '../shared/ingredient.model';
+import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
+
+@Injectable()
 export class RecipeService {
 
-  selectedRecipe = new EventEmitter<Recipe>();
-
   private recipes: Recipe[] = [
-      new Recipe(
-        'burger',
-        'this is a description of test recipe',
-        'https://images.pexels.com/photos/691114/pexels-photo-691114.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        [
-          new Ingredient('meet',10),
-          new Ingredient('French Fries',300)
-        ]
-      ),
-      new Recipe(
-        'aaloo paratha',
-        'this is a description of test recipe',
-        'https://images.pexels.com/photos/691114/pexels-photo-691114.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        [
-          new Ingredient('potatos',10),
-          new Ingredient('onions',300),
-          new Ingredient('garam masala',40)
-        ]
-      ),
-      new Recipe(
-        'panipuri',
-        'this is a description of test recipe',
-        'https://images.pexels.com/photos/691114/pexels-photo-691114.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        [
-          new Ingredient('puri',120),
-          new Ingredient('potato',300),
-          new Ingredient('water',40)
-        ]
-      ),
-    ];
+    new Recipe(
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
+      ]),
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ])
+  ];
 
-  getRecipes(){
+  constructor(private slService: ShoppingListService) {}
+
+  getRecipes() {
     return this.recipes.slice();
   }
 
-  constructor() { }
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
 }
